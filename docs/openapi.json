@@ -1,0 +1,176 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FieldForce HRMS - Break Management API",
+    "version": "1.0.0",
+    "description": "API documentation for Attendance Break Management module"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/attendance/{attendanceId}/breaks/start": {
+      "post": {
+        "summary": "Start a new break",
+        "tags": [
+          "Attendance"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "attendanceId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "break_type": {
+                    "type": "string",
+                    "enum": [
+                      "lunch",
+                      "tea",
+                      "other"
+                    ]
+                  },
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Break started successfully"
+          }
+        }
+      }
+    },
+    "/attendance/{attendanceId}/breaks/{breakId}/end": {
+      "post": {
+        "summary": "End an active break",
+        "tags": [
+          "Attendance"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "attendanceId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "breakId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Break ended successfully"
+          }
+        }
+      }
+    },
+    "/attendance/breaks": {
+      "get": {
+        "summary": "Get break summary",
+        "tags": [
+          "Attendance"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "type": "string",
+              "example": "2026-01-29"
+            }
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
