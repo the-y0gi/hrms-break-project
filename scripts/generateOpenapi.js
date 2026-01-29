@@ -12,7 +12,7 @@ if (!fs.existsSync(docsDir)) {
 try {
   fs.writeFileSync(outputFile, JSON.stringify(swaggerSpec, null, 2));
   console.log(
-    "Swagger documentation generated successfully at /docs/openapi.json",
+    "Swagger documentation generated successfully  /docs/openapi.json",
   );
 } catch (error) {
   console.error("Failed to generate Swagger docs:", error);

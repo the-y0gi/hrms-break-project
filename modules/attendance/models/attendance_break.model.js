@@ -3,9 +3,6 @@ const { Model, DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   class AttendanceBreak extends Model {
     static associate(models) {
-      // Assignment Part 1 Requirements:
-      // AttendanceBreak.belongsTo(User)
-      // AttendanceBreak.belongsTo(Attendance)
       AttendanceBreak.belongsTo(models.user, { foreignKey: "user_id" });
       AttendanceBreak.belongsTo(models.attendance, {
         foreignKey: "attendance_id",
@@ -54,7 +51,7 @@ module.exports = (sequelize) => {
       sequelize,
       modelName: "attendance_break",
       tableName: "attendance_breaks",
-      underscored: true, // created_at, updated_at formatting ke liye
+      underscored: true,
     },
   );
 

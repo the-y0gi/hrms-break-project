@@ -33,8 +33,8 @@ This project is an extension of the Attendance Module for the FieldForce HRMS Sa
 
 1.  **Clone the repository**:
     ```bash
-    git clone <repo-url>
-    cd fulcrum-attendance-break-management
+    git clone https://github.com/the-y0gi/hrms-break-project
+    cd hrms-break-project
     ```
 2.  **Install dependencies**:
     ```bash
@@ -44,11 +44,12 @@ This project is an extension of the Attendance Module for the FieldForce HRMS Sa
     Create a `.env` file and add the following:
     ```env
     PORT=3000
-    DB_NAME=your_db_name
-    DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
-    DB_HOST=localhost
-    JWT_SECRET=your_jwt_secret
+    DB_NAME=attendance 
+    DB_USER=postgres
+    DB_PASSWORD=postgres123
+    DB_HOST=127.0.0.1
+    DB_DIALECT=postgres
+    JWT_SECRET=supersecretkey123
     ```
 4.  **Database Migration**:
     ```bash
@@ -62,11 +63,18 @@ This project is an extension of the Attendance Module for the FieldForce HRMS Sa
     ```bash
     npm run dev
     ```
+## Running Tests / Seeding Data
+
+You can use `node seed.js` to populate initial test data for a user, attendance, and tenant.
+Use `node test-token.js` to generate a test JWT token for authentication.
+
 
 ## API Documentation
 
 Once the server is running, visit:
 `http://localhost:3000/api-docs`
+
+
 
 ## Scripts
 
@@ -75,7 +83,3 @@ Once the server is running, visit:
 - `npm run migrate`: Runs database migrations.
 - `npm run docs:build`: Re-generates the Swagger documentation.
 
-## Running Tests / Seeding Data
-
-You can use `node seed.js` to populate initial test data for a user, attendance, and tenant.
-Use `node test-token.js` to generate a test JWT token for authentication.

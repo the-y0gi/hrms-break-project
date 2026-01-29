@@ -1,17 +1,25 @@
-const { AttendanceBreak } = require("../../../config/db.connect");
+const {
+  AttendanceBreak,
+  User,
+  Attendance,
+} = require("../../../config/db.connect");
 const { Op } = require("sequelize");
 
 class BreakService {
   static async startBreak(attendanceId, userId, tenantId, data) {
     const activeBreak = await AttendanceBreak.findOne({
-      where: { user_id: userId, tenant_id: tenantId, end_time: null },
+      where: {
+        user_id: userId,
+        tenant_id: tenantId,
+        end_time: null,
+      },
     });
 
     if (activeBreak) {
-      throw new Error("You already have active break,, End it first.");
+      throw new Error("You already have an active break. End it first.");
     }
 
-    return await AttendanceBreak.create({
+    return AttendanceBreak.create({
       attendance_id: attendanceId,
       user_id: userId,
       tenant_id: tenantId,
@@ -35,12 +43,12 @@ class BreakService {
     });
 
     if (!breakRecord) {
-      throw new Error("Active break notfound or already end.");
+      throw new Error("Active break not found or already ended..");
     }
 
     const endTime = new Date();
     const durationMinutes = Math.round(
-      (endTime - breakRecord.start_time) / 60000,
+      (endTime.getTime() - breakRecord.start_time.getTime()) / 60000,
     );
 
     await breakRecord.update({
@@ -49,27 +57,37 @@ class BreakService {
       end_lng: data.lng,
     });
 
-    return { breakRecord, durationMinutes };
+    return {
+      break: breakRecord,
+      durationMinutes,
+    };
   }
 
   static async getSummary(userId, tenantId, date) {
-    const { User, Attendance } = require("../../../config/db.connect");
+    const dateFilter = date
+      ? {
+          check_in: {
+            [Op.between]: [
+              new Date(`${date}T00:00:00.000Z`),
+              new Date(`${date}T23:59:59.999Z`),
+            ],
+          },
+        }
+      : {};
 
-    // Database se data fetch karo with nested associations
     const userWithBreaks = await User.findOne({
-      where: { id: userId, tenant_id: tenantId },
+      where: {
+        id: userId,
+        tenant_id: tenantId,
+      },
       include: [
         {
           model: Attendance,
           where: {
             tenant_id: tenantId,
-            ...(date && {
-              check_in: {
-                [Op.gte]: new Date(date + "T00:00:00.000Z"),
-                [Op.lte]: new Date(date + "T23:59:59.999Z"),
-              },
-            }),
+            ...dateFilter,
           },
+          required: false,
           include: [
             {
               model: AttendanceBreak,

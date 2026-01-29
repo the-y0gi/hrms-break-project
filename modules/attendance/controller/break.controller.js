@@ -63,7 +63,6 @@ class BreakController {
       const { date, user_id } = req.query;
       const { id: currentUserId, role, tenant_id } = req.user;
 
-      // Role-based logic
       let targetUserId = currentUserId;
       if ((role === "admin" || role === "manager") && user_id) {
         targetUserId = user_id;

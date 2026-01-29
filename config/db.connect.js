@@ -22,17 +22,22 @@ const AttendanceBreak = BreakModel(sequelize);
 
 User.hasMany(Attendance, { foreignKey: "user_id" });
 Attendance.belongsTo(User, { foreignKey: "user_id" });
+
 Attendance.hasMany(AttendanceBreak, { foreignKey: "attendance_id" });
 AttendanceBreak.belongsTo(Attendance, { foreignKey: "attendance_id" });
+
 AttendanceBreak.belongsTo(User, { foreignKey: "user_id" });
 
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Database connected successfully...");
+    console.log("Database connected successfully");
+
     await sequelize.sync({ force: false });
+    console.log("Models synced successfully");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("Database connection failed:", error);
+    process.exit(1);
   }
 };
 
