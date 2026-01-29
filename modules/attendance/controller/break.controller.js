@@ -44,6 +44,7 @@ class BreakController {
       logger.info("Break Ended", {
         tenant_id: tenantId,
         user_id: userId,
+        attendance_id: attendanceId,
         break_id: breakId,
       });
 

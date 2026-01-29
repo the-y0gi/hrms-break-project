@@ -12,21 +12,19 @@ const sequelize = new Sequelize(
   },
 );
 
-// Models Import
 const UserModel = require("../modules/attendance/models/user.model");
 const AttendanceModel = require("../modules/attendance/models/attendance.model");
 const BreakModel = require("../modules/attendance/models/attendance_break.model");
 
-// Models Initialization
 const User = UserModel(sequelize);
 const Attendance = AttendanceModel(sequelize);
 const AttendanceBreak = BreakModel(sequelize);
 
-// Associations (Important for Sequelize)
 User.hasMany(Attendance, { foreignKey: "user_id" });
 Attendance.belongsTo(User, { foreignKey: "user_id" });
 Attendance.hasMany(AttendanceBreak, { foreignKey: "attendance_id" });
 AttendanceBreak.belongsTo(Attendance, { foreignKey: "attendance_id" });
+AttendanceBreak.belongsTo(User, { foreignKey: "user_id" });
 
 const connectDB = async () => {
   try {
@@ -38,7 +36,6 @@ const connectDB = async () => {
   }
 };
 
-// Yahan check karo ki export sahi hai
 module.exports = {
   sequelize,
   connectDB,

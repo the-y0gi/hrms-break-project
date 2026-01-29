@@ -53,26 +53,35 @@ class BreakService {
   }
 
   static async getSummary(userId, tenantId, date) {
-    const whereClause = {
-      user_id: userId,
-      tenant_id: tenantId,
-    };
+    const { User, Attendance } = require("../../../config/db.connect");
 
-    // Agar date di gayi hai, toh sirf us din ke breaks nikaalo
-    if (date) {
-      whereClause.start_time = {
-        [Op.gte]: new Date(date + "T00:00:00.000Z"),
-        [Op.lte]: new Date(date + "T23:59:59.999Z"),
-      };
-    }
-
-    // Database se data fetch karo
-    const breaks = await AttendanceBreak.findAll({
-      where: whereClause,
-      order: [["start_time", "ASC"]],
+    // Database se data fetch karo with nested associations
+    const userWithBreaks = await User.findOne({
+      where: { id: userId, tenant_id: tenantId },
+      include: [
+        {
+          model: Attendance,
+          where: {
+            tenant_id: tenantId,
+            ...(date && {
+              check_in: {
+                [Op.gte]: new Date(date + "T00:00:00.000Z"),
+                [Op.lte]: new Date(date + "T23:59:59.999Z"),
+              },
+            }),
+          },
+          include: [
+            {
+              model: AttendanceBreak,
+              where: { tenant_id: tenantId },
+              required: false,
+            },
+          ],
+        },
+      ],
     });
 
-    return breaks;
+    return userWithBreaks;
   }
 }
 

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "docs:build": "node ./scripts/generateOpenapi.js"
+    "docs:build": "node ./scripts/generateOpenapi.js",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
