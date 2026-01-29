@@ -83,3 +83,6 @@ Once the server is running, visit:
 - `npm run migrate`: Runs database migrations.
 - `npm run docs:build`: Re-generates the Swagger documentation.
 
+
+## Postman Collection
+You can use `postman_collection.json` to test the API.

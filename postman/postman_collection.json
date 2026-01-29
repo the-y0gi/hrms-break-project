@@ -1,0 +1,119 @@
+{
+  "info": {
+    "_postman_id": "fde4f74d-6ec7-4176-91ca-94fb7604eb40",
+    "name": "HRMS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37871660"
+  },
+  "item": [
+    {
+      "name": "Break Time",
+      "item": [
+        {
+          "name": "Start",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUyMWQwODg0LTgxMGEtNGI5My1iODkzLWMxM2NlZjJkNTkxZCIsInRlbmFudF9pZCI6IjBiMDQ2NjJkLWM3OTYtNGIzNS04MzVlLWJmZmI2NGM3NDk0NSIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc2OTcxNjQ3M30.aGxjPT86Xvtp2XwSBsTmnKfG6Yoslrd5S_Uv3SZ1aVo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"break_type\": \"lunch\",\r\n  \"lat\": 18.905,\r\n  \"lng\": 20.732,\r\n  \"reason\": \"Yeh!! Lunch Time.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/attendance/b21623f1-5fc6-4dcb-acf1-b9f7f39b5520/breaks/start",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": [
+                "attendance",
+                "b21623f1-5fc6-4dcb-acf1-b9f7f39b5520",
+                "breaks",
+                "start"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "End",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUyMWQwODg0LTgxMGEtNGI5My1iODkzLWMxM2NlZjJkNTkxZCIsInRlbmFudF9pZCI6IjBiMDQ2NjJkLWM3OTYtNGIzNS04MzVlLWJmZmI2NGM3NDk0NSIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc2OTcxNjQ3M30.aGxjPT86Xvtp2XwSBsTmnKfG6Yoslrd5S_Uv3SZ1aVo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"lat\": 18.905,\r\n  \"lng\": 20.732\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/attendance/b21623f1-5fc6-4dcb-acf1-b9f7f39b5520/breaks/6ffcf6a1-b15e-41c9-bf80-273e614815ea/end",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": [
+                "attendance",
+                "b21623f1-5fc6-4dcb-acf1-b9f7f39b5520",
+                "breaks",
+                "6ffcf6a1-b15e-41c9-bf80-273e614815ea",
+                "end"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Summary",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUyMWQwODg0LTgxMGEtNGI5My1iODkzLWMxM2NlZjJkNTkxZCIsInRlbmFudF9pZCI6IjBiMDQ2NjJkLWM3OTYtNGIzNS04MzVlLWJmZmI2NGM3NDk0NSIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc2OTcxNjQ3M30.aGxjPT86Xvtp2XwSBsTmnKfG6Yoslrd5S_Uv3SZ1aVo",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/attendance/breaks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["attendance", "breaks"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
