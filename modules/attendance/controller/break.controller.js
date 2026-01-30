@@ -24,6 +24,12 @@ class BreakController {
         .status(201)
         .json({ message: "Break started successfully", data: newBreak });
     } catch (error) {
+      logger.error("Error starting break", {
+        error: error.message,
+        attendance_id: req.params.attendanceId,
+        user_id: req.user.id,
+        tenant_id: req.user.tenant_id,
+      });
       return res.status(400).json({ message: error.message });
     }
   }
@@ -54,6 +60,13 @@ class BreakController {
         data: result.breakRecord,
       });
     } catch (error) {
+      logger.error("Error ending break", {
+        error: error.message,
+        break_id: req.params.breakId,
+        attendance_id: req.params.attendanceId,
+        user_id: req.user.id,
+        tenant_id: req.user.tenant_id,
+      });
       return res.status(400).json({ message: error.message });
     }
   }
@@ -73,8 +86,21 @@ class BreakController {
         tenant_id,
         date,
       );
+
+      logger.info("Break Summary Retrieved", {
+        requested_by: currentUserId,
+        target_user: targetUserId,
+        tenant_id,
+        date,
+      });
+
       return res.status(200).json({ data: summary });
     } catch (error) {
+      logger.error("Error retrieving break summary", {
+        error: error.message,
+        requested_by: req.user.id,
+        tenant_id: req.user.tenant_id,
+      });
       return res.status(400).json({ message: error.message });
     }
   }

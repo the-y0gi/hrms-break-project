@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
+const logger = require("../utils/logger");
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -31,12 +32,12 @@ AttendanceBreak.belongsTo(User, { foreignKey: "user_id" });
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Database connected successfully");
+    logger.info("Database connected successfully");
 
     await sequelize.sync({ force: false });
-    console.log("Models synced successfully");
+    logger.info("Models synced successfully");
   } catch (error) {
-    console.error("Database connection failed:", error);
+    logger.error("Database connection failed", { error });
     process.exit(1);
   }
 };

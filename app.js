@@ -21,5 +21,5 @@ app.use("/attendance", attendanceRoutes);
 
 app.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
-  console.log(`Server running at http://localhost:${PORT}`);
+  logger.info(`Server running at http://localhost:${PORT}`);
 });
